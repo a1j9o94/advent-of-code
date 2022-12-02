@@ -3,16 +3,41 @@
 def getScoreResult(game):
     pickArray = [*game]
     theirEncryptedSelection = pickArray[0]
-    myEncryptedSelection = pickArray[2]
+    myEncryptedGoal = pickArray[2]
 
     theirDecodedSelection = decode(theirEncryptedSelection, "t")
-    myDecodedSelection = decode(myEncryptedSelection, "m")
+    myDecodedGoal = decode(myEncryptedGoal, "m")
 
-    resultScore = getResultScore(theirDecodedSelection, myDecodedSelection)
+    mySelection = getMySelection(theirDecodedSelection, myDecodedGoal)
 
-    selectionScore = getSelectionScore(myDecodedSelection)
+    resultScore = getResultScore(theirDecodedSelection, mySelection)
+
+    selectionScore = getSelectionScore(mySelection)
 
     return resultScore + selectionScore
+
+def getMySelection(theirSelection, myGoal):
+    if theirSelection == "rock":
+        if myGoal == "win":
+            return "paper"
+        if myGoal == "draw":
+            return "rock"
+        if myGoal == "lose":
+            return "scissors"
+    if theirSelection == "paper":
+        if myGoal == "win":
+            return "scissors"
+        if myGoal == "draw":
+            return "paper"
+        if myGoal == "lose":
+            return "rock"
+    if theirSelection == "scissors":
+        if myGoal == "win":
+            return "rock"
+        if myGoal == "draw":
+            return "scissors"
+        if myGoal == "lose":
+            return "paper"
 
 def getSelectionScore(selection):
     if selection == "rock":
@@ -55,11 +80,11 @@ def decode(selection, player):
             return "scissors"
     if player == "m":
         if selection == "X":
-            return "rock"
+            return "lose"
         if selection == "Y":
-            return "paper"
+            return "draw"
         if selection == "Z":
-            return "scissors"
+            return "win"
 
 
 if __name__ == '__main__':
