@@ -1,5 +1,5 @@
 
-
+//The second example
 if __name__ == '__main__':
     data_file = open('day3Data.txt', 'r')
     raw_rucksack_data = data_file.readlines()
